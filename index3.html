@@ -1,51 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <h1>SPĒLE BEIGUSIES</h1>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spēle</title>
-    <link rel="stylesheet" href="style.css"> <!-- Iekļaujiet savu CSS failu -->
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        #score, #mistakes {
-            margin-bottom: 20px;
-            font-size: 18px;
-            color: #333;
-        }
-
-        #restartButton {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        #restartButton:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css"> 
+    
 </head>
 <body>
-    <div id="score">Pareizās atbildes: <span id="correctAnswers"></span></div>
-    <div id="mistakes">Nepareizās atbildes: <span id="incorrectAnswers"></span></div>
+    <div id="score">Pareizās atbildes: <span id="correctAnswers">0</span></div>
+    <div id="mistakes">Nepareizās atbildes: <span id="incorrectAnswers">0</span></div>
+    <div id="taskDuration">Uzdevuma ilgums: <span id="taskDurationDisplay">0 sek</span></div>
+    <div id="livesLost">Dzīvības zaudētas: <span id="livesLostDisplay">0</span></div>
     <button id="restartButton" onclick="restartGame()">Sākt no jauna</button>
 
-    <script src="script.js"></script> <!-- Iekļaujiet savu JavaScript failu -->
+    <script src="script.js"></script> 
 </body>
 </html>
