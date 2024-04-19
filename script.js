@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
       button.classList.add("btn-danger");
     }
     
+    
     // Atsvaidzina lapu pēc 2 sekundēm
     setTimeout(() => {
       currentQuestion++; // Pārejam uz nākamo uzdevumu
