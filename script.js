@@ -30,8 +30,8 @@ document.addEventListener("DOMContentLoaded", function() {
       {
         question: "Izteiksme ",
         answers: [
-          { text: "A-Binoms", isCorrect: false },
-          { text: "B-Trinoms", isCorrect: false },
+          { text: "A-36", isCorrect: false },
+          { text: "B- -36", isCorrect: false },
           { text: "C-Monom", isCorrect: true },
           { text: "D-Polimon", isCorrect: false }
         ]
