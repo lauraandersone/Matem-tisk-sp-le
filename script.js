@@ -43,17 +43,4 @@ function generateQuestion() {
         });
         questionContainer.appendChild(answersContainer);
 
-        currentQuestion++;
-    } else {
-        // Ja visi uzdevumi ir izpildīti, pāriet uz nākamo līmeni vai beigt spēli
-        currentLevel++;
-        currentQuestion = 0;
-        if (currentLevel <= totalLevels) {
-            alert("Apsveicu! Tu pārgāji uz nākamo līmeni!");
-            generateQuestion();
-        } else {
-            alert("Apsveicu! Tu pabeidzi spēli!");
-            resetGame();
-        }
-    }
-}
+    }}
