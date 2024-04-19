@@ -2,6 +2,11 @@
 function startGame() {
   window.location.href = "index2.html";
 }
+function restartGame() {
+    window.location.href = "index2.html";
+}
+
+// Kad lapa ir ielādēta, izsaukt funkciju, kas ģenerē uzdevumu
 document.addEventListener("DOMContentLoaded", function() {
     generateQuestion(); // Ģenerē uzdevumu, kad lapa ir ielādēta
   });
