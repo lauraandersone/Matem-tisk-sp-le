@@ -21,7 +21,7 @@ function generateQuestion() {
     if (currentQuestion < totalQuestionsPerLevel) {
         // Iegūstam jautājumu un atbilžu variantus
         const question = "Monomu 6x²dalot ar monomu 3x², iegūst:";
-        const answers = ["A-", "4", "5", "6"]; // Ievietojiet pareizās atbildes pirmajā pozīcijā
+        const answers = ["A-3x⁴", "B-2x⁴", "C-2x⁶", "D-3x⁶"]; // Ievietojiet pareizās atbildes pirmajā pozīcijā
 
         // Ģenerējam uzdevumu un pievienojam to HTML
         const questionContainer = document.getElementById("questionContainer");
