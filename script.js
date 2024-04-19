@@ -88,13 +88,32 @@ function generateQuestion() {
     secondsLeft = 120;
   
     // Iegūstam jautājumu un atbilžu variantus
-    const question = "Monomu 6x² dalot ar monomu 3x², iegūst:";
-    const answers = [
-      { text: "A-3x⁴", isCorrect: false },
-      { text: "B-2x⁴", isCorrect: false },
-      { text: "C-2x⁶", isCorrect: true },
-      { text: "D-3x⁶", isCorrect: false }
+    const questions = [
+      {
+        question: "Monomu 6x² dalot ar monomu 3x², iegūst:",
+        answers: [
+          { text: "A-3x⁴", isCorrect: true },
+          { text: "B-2x⁴", isCorrect: false },
+          { text: "C-2x⁶", isCorrect: false },
+          { text: "D-3x⁶", isCorrect: false }
+        ]
+      },
+      {
+        question: "Izteiksme ",
+        answers: [
+          { text: "A-36", isCorrect: false },
+          { text: "B- -36", isCorrect: false },
+          { text: "C-Monom", isCorrect: true },
+          { text: "D-Polimon", isCorrect: false }
+        ]
+      },
+      // Pievienojiet vairākus citus uzdevumus ar atbildēm
     ];
+  
+    // Iegūstam jaunu uzdevumu
+    const newQuestion = questions[currentQuestion];
+    const question = newQuestion.question;
+    const answers = newQuestion.answers;
   
     // Ģenerējam uzdevumu un pievienojam to HTML
     const questionContainer = document.getElementById("questionContainer");
@@ -123,26 +142,12 @@ function checkAnswer(isCorrect, button) {
         button.classList.add("btn-success");
         alert("Pareizi!");
     } else {
-        button.classList.remove("btn-secondary");
-        button.classList.add("btn-danger");
-        alert("Nepareizi!");
-        lives--; // Samazina dzīvību skaitu, ja atbilde nav pareiza
-        if (lives <= 0) {
-            alert("Spēle beigusies! Tu zaudēji!");
-            window.location.reload();
-        }
+      button.classList.remove("btn-secondary");
+      button.classList.add("btn-danger");
     }
+    
+    // Pagaidām atsvaidzina lapu pēc 2 sekundēm, bet jūs varat to mainīt uz jebkuru citu laika intervālu, ja nepieciešams
     setTimeout(() => {
-        nextQuestion();
+      location.reload();
     }, 2000); // Atsvaidzina lapu pēc 2 sekundēm
-}
-
-function nextQuestion() {
-    currentQuestion++;
-    if (currentQuestion >= totalQuestionsPerLevel) {
-        alert("Apsveicu! Tu uzvarēji!");
-        window.location.reload();
-    } else {
-        generateQuestion();
-    }
-}
+  }
