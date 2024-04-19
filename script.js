@@ -12,13 +12,32 @@ document.addEventListener("DOMContentLoaded", function() {
   // Funkcija, kas ģenerē uzdevumu
   function generateQuestion() {
     // Iegūstam jautājumu un atbilžu variantus
-    const question = "Monomu 6x² dalot ar monomu 3x², iegūst:";
-    const answers = [
-      { text: "A-3x⁴", isCorrect: false },
-      { text: "B-2x⁴", isCorrect: false },
-      { text: "C-2x⁶", isCorrect: true },
-      { text: "D-3x⁶", isCorrect: false }
+    const questions = [
+      {
+        question: "Monomu 6x² dalot ar monomu 3x², iegūst:",
+        answers: [
+          { text: "A-3x⁴", isCorrect: true },
+          { text: "B-2x⁴", isCorrect: false },
+          { text: "C-2x⁶", isCorrect: false },
+          { text: "D-3x⁶", isCorrect: false }
+        ]
+      },
+      {
+        question: "Izteiksme ",
+        answers: [
+          { text: "A-Binoms", isCorrect: false },
+          { text: "B-Trinoms", isCorrect: false },
+          { text: "C-Monom", isCorrect: true },
+          { text: "D-Polimon", isCorrect: false }
+        ]
+      },
+      // Pievienojiet vairākus citus uzdevumus ar atbildēm
     ];
+  
+    // Iegūstam jaunu uzdevumu
+    const newQuestion = questions[currentQuestion];
+    const question = newQuestion.question;
+    const answers = newQuestion.answers;
   
     // Ģenerējam uzdevumu un pievienojam to HTML
     const questionContainer = document.getElementById("questionContainer");
@@ -51,8 +70,12 @@ document.addEventListener("DOMContentLoaded", function() {
       button.classList.add("btn-danger");
     }
     
-    // Pagaidām atsvaidzina lapu pēc 2 sekundēm, bet jūs varat to mainīt uz jebkuru citu laika intervālu, ja nepieciešams
+    // Atsvaidzina lapu pēc 2 sekundēm
     setTimeout(() => {
-      location.reload();
+      currentQuestion++; // Pārejam uz nākamo uzdevumu
+      if (currentQuestion >= totalQuestionsPerLevel) {
+        currentQuestion = 0; // Ja esam sasniedzis pēdējo uzdevumu, sākam no sākuma
+      }
+      generateQuestion(); // Ģenerējam jaunu uzdevumu
     }, 2000); // Atsvaidzina lapu pēc 2 sekundēm
   }
