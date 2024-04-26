@@ -6,12 +6,14 @@ function startGame() {
 function restartGame() {
   window.location.href = "index2.html";
 }
-
 let currentQuestion = 0;
 const totalQuestionsPerLevel = 5; // Piemēram, 5 uzdevumi katram līmenim
 const totalLevels = 4; // Kopējais līmeņu skaits
 let lives = 3; // Sākotnējais dzīvību skaits
-let secondsLeft = 120; // Laika limits uzdevuma risināšanai (sekundes)
+let secondsLeft = 120; // Sākotnējais laika limits uzdevuma risināšanai (sekundes)
+let initialTimePerLevel = 120; // Sākotnējais laiks uz katru līmeni (sekundes)
+let correctAnswersInARow = 0; // Pareizo atbilžu skaits pēc kārtas
+
 
 // Uzdevumu saraksts
 const questions = [
@@ -197,26 +199,39 @@ const questions = [
   },
   
 ];
+
 document.addEventListener("DOMContentLoaded", function() {
+  // Pārbauda, vai ir iepriekš saglabāts laiks
+  const storedTime = localStorage.getItem("timeLeft");
+  if (storedTime) {
+    secondsLeft = parseInt(storedTime);
+  }
   startTimer(); // Sāk laika skaitītāju
   generateQuestion(); // Ģenerē uzdevumu, kad lapa ir ielādēta
 });
 
+let timerInterval; // Globālais mainīgais, lai saglabātu laika skaitītāja intervala ID
+
 function startTimer() {
-  const timerInterval = setInterval(() => {
-    secondsLeft--;
-    document.getElementById("timeLeft").textContent = secondsLeft;
-    if (secondsLeft <= 0) {
-      clearInterval(timerInterval);
-      alert("Laiks beidzies!");
-      nextQuestion();
-    }
-  }, 1000);
+  // Tikai sāk jaunu laika skaitītāju, ja iepriekšējais netiek jau darbināts
+  if (!timerInterval) {
+    timerInterval = setInterval(() => {
+      secondsLeft--;
+      document.getElementById("timeLeft").textContent = secondsLeft;
+      if (secondsLeft <= 0) {
+        clearInterval(timerInterval);
+        alert("Laiks beidzies!");
+        nextQuestion();
+      }
+    }, 1000);
+  }
 }
 
 function generateQuestion() {
-  // Atiestata laika skaitītāju uz sākotnējo vērtību
-  secondsLeft = 120;
+  // Atiestata laika skaitītāju uz sākotnējo vērtību tikai, ja nav sasniedzis pēdējo līmeni
+  if (currentQuestion % totalQuestionsPerLevel === 0) {
+    secondsLeft = initialTimePerLevel;
+  }
 
   // Iegūstam jaunu uzdevumu
   const newQuestion = questions[currentQuestion];
@@ -254,9 +269,15 @@ function checkAnswer(isCorrect, button) {
   if (isCorrect) {
     button.classList.remove("btn-secondary");
     button.classList.add("btn-success");
+    correctAnswersInARow++;
+    if (correctAnswersInARow === 3) {
+      lives++;
+      correctAnswersInARow = 0;
+    }
   } else {
     button.classList.remove("btn-secondary");
     button.classList.add("btn-danger");
+    correctAnswersInARow = 0;
     // Atņem dzīvību, ja atbilde nav pareiza
     lives--;
     if (lives === 0) {
@@ -276,6 +297,8 @@ function checkAnswer(isCorrect, button) {
       const levelIndicator = document.getElementById("levelIndicator");
       levelIndicator.textContent = "Līmenis: " + calculateCurrentLevel(currentQuestion);
     }
+    // Saglabā laiku pēc katras līmeņa pabeigšanas
+    localStorage.setItem("timeLeft", secondsLeft.toString());
     // Ģenerē un parāda jaunu jautājumu
     generateQuestion();
   }, 2000);
