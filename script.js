@@ -15,6 +15,7 @@ let initialTimePerLevel = 120; // Sākotnējais laiks uz katru līmeni (sekundes
 let correctAnswersInARow = 0; // Pareizo atbilžu skaits pēc kārtas
 
 
+
 // Uzdevumu saraksts
 const questions = [
   {
@@ -265,6 +266,10 @@ function calculateCurrentLevel(currentQuestion) {
   return Math.floor(currentQuestion / totalQuestionsPerLevel) + 1;
 }
 
+let correctAnswers = 0; // Pareizo atbilžu skaits
+let wrongAnswers = 0; // Nepareizo atbilžu skaits
+let totalGameTime = 0; // Kopējais spēles laiks (sekundes)
+
 function checkAnswer(isCorrect, button) {
   if (isCorrect) {
     button.classList.remove("btn-secondary");
@@ -290,6 +295,8 @@ function checkAnswer(isCorrect, button) {
   setTimeout(() => {
     // Palielina uzdevuma numuru
     currentQuestion++;
+    // Saglabā spēles progresu
+    localStorage.setItem("speluProgress", JSON.stringify({ currentQuestion, lives }));
     // Pārbauda, vai esam sasniedzis pēdējo uzdevumu
     if (currentQuestion >= questions.length) {
       currentQuestion = 0; // Ja esam sasniedzis pēdējo uzdevumu, sākam no sākuma
@@ -305,6 +312,10 @@ function checkAnswer(isCorrect, button) {
 }
 
 function endGame() {
+  // Aprēķina kopējo spēles laiku
+  totalGameTime = 120 - secondsLeft;
+  // Notīra spēles progresu
+  localStorage.removeItem("speluProgress");
   // Pārslēdz spēlētāju uz index3.html
   window.location.href = "index3.html";
 }
