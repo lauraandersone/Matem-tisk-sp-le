@@ -161,7 +161,7 @@ const questions = [
   {
     question: "Met divus spēļu kauliņus ar 7 skaldnēm un nosaka uz augšējām skaldnēm uzmesto punktu summu. Kurš no dotajiem notikumiem ir drošs notikums?",
     answers: [
-      { text: "A: Punktu summa ir lielāka nkeā 14", isCorrect: false },
+      { text: "A: Punktu summa ir lielāka nekā 14", isCorrect: false },
       { text: "B: Punktu summa ir pāra skaitlis", isCorrect: false },
       { text: "C: Punktu summa ir mazāka nekā 14", isCorrect: true },
       { text: "D: Punktu summa ir nepāra skaitlis", isCorrect: false }
