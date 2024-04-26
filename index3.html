@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <h1>SPĒLE BEIGUSIES</h1>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spēle</title>
     <link rel="stylesheet" href="style.css"> 
-    
 </head>
 <body>
+    <h1>SPĒLE BEIGUSIES</h1>
     <div id="score">Pareizās atbildes: <span id="correctAnswers">0</span></div>
     <div id="mistakes">Nepareizās atbildes: <span id="incorrectAnswers">0</span></div>
     <div id="taskDuration">Uzdevuma ilgums: <span id="taskDurationDisplay">0 sek</span></div>
-    <div id="livesLost">Dzīvības zaudētas: <span id="livesLostDisplay">0</span></div>
-    <button id="restartButton" onclick="restartGame()">Sākt no jauna</button>
+    <div id="livesLost">Zaudētās dzīvības: <span id="livesLostDisplay">0</span></div>
+    <div id="answersContainer"></div> <!-- Šeit tiks parādītas atbildes -->
+    
+    <button class="btn btn-primary btn-lg" onclick="restartGame()">Sākt spēli no jauna</button>
 
     <script src="script.js"></script> 
 </body>

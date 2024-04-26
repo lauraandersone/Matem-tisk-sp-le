@@ -13,6 +13,7 @@ const totalLevels = 4; // Kopējais līmeņu skaits
 let lives = 3; // Sākotnējais dzīvību skaits
 let secondsLeft = 120; // Laika limits uzdevuma risināšanai (sekundes)
 
+
 // Uzdevumu saraksts
 const questions = [
   {
@@ -197,10 +198,51 @@ const questions = [
   },
   
 ];
+
 document.addEventListener("DOMContentLoaded", function() {
+  // Sāk laika skaitītāju, ja tas nav iestatīts
+  if (!localStorage.getItem("laikaIerobezojums")) {
+    iestatitLaikaIerobezojumu();
+  } else {
+    // Pārbauda, vai ir pagājušas 120 sekundes un ja ir, atjauno laika ierobežojumu
+    if (irPagajusas120Sekundes()) {
+      atjaunotLaikaIerobezojumu();
+    }
+  }
+
+  // Atjauno spēles progresu, ja tas ir saglabāts
+  if (localStorage.getItem("speluProgress")) {
+    const progress = JSON.parse(localStorage.getItem("speluProgress"));
+    currentQuestion = progress.currentQuestion;
+    lives = progress.lives;
+  }
+
   startTimer(); // Sāk laika skaitītāju
   generateQuestion(); // Ģenerē uzdevumu, kad lapa ir ielādēta
 });
+
+// Funkcija, lai iestatītu laika ierobežojumu
+function iestatitLaikaIerobezojumu() {
+  let sakumaLaiks = new Date().getTime();
+  localStorage.setItem('laikaIerobezojums', sakumaLaiks);
+}
+
+// Funkcija, lai pārbaudītu, vai ir pagājušas 120 sekundes
+function irPagajusas120Sekundes() {
+  let tagad = new Date().getTime();
+  let sakumaLaiks = localStorage.getItem('laikaIerobezojums');
+  if (!sakumaLaiks) {
+    return false;
+  }
+  let laikaStarpibaSekundes = (tagad - sakumaLaiks) / 1000;
+  return laikaStarpibaSekundes >= 120;
+}
+
+// Funkcija, lai atjaunotu laika ierobežojumu
+function atjaunotLaikaIerobezojumu() {
+  iestatitLaikaIerobezojumu();
+  // Papildus darbības pēc laika ierobežojuma atjaunošanas
+}
 
 function startTimer() {
   const timerInterval = setInterval(() => {
@@ -250,13 +292,19 @@ function calculateCurrentLevel(currentQuestion) {
   return Math.floor(currentQuestion / totalQuestionsPerLevel) + 1;
 }
 
+let correctAnswers = 0; // Pareizo atbilžu skaits
+let wrongAnswers = 0; // Nepareizo atbilžu skaits
+let totalGameTime = 0; // Kopējais spēles laiks (sekundes)
+
 function checkAnswer(isCorrect, button) {
   if (isCorrect) {
     button.classList.remove("btn-secondary");
     button.classList.add("btn-success");
+    correctAnswers++; // Palielina pareizo atbilžu skaitu
   } else {
     button.classList.remove("btn-secondary");
     button.classList.add("btn-danger");
+    wrongAnswers++; // Palielina nepareizo atbilžu skaitu
     // Atņem dzīvību, ja atbilde nav pareiza
     lives--;
     if (lives === 0) {
@@ -269,6 +317,8 @@ function checkAnswer(isCorrect, button) {
   setTimeout(() => {
     // Palielina uzdevuma numuru
     currentQuestion++;
+    // Saglabā spēles progresu
+    localStorage.setItem("speluProgress", JSON.stringify({ currentQuestion, lives }));
     // Pārbauda, vai esam sasniedzis pēdējo uzdevumu
     if (currentQuestion >= questions.length) {
       currentQuestion = 0; // Ja esam sasniedzis pēdējo uzdevumu, sākam no sākuma
@@ -282,6 +332,10 @@ function checkAnswer(isCorrect, button) {
 }
 
 function endGame() {
+  // Aprēķina kopējo spēles laiku
+  totalGameTime = 120 - secondsLeft;
+  // Notīra spēles progresu
+  localStorage.removeItem("speluProgress");
   // Pārslēdz spēlētāju uz index3.html
   window.location.href = "index3.html";
 }
