@@ -9,6 +9,7 @@ function restartGame() {
 
 let currentQuestion = 0;
 const totalQuestionsPerLevel = 5; // Piemēram, 5 uzdevumi katram līmenim
+const totalLevels = 4; // Kopējais līmeņu skaits
 let lives = 3; // Sākotnējais dzīvību skaits
 let secondsLeft = 120; // Laika limits uzdevuma risināšanai (sekundes)
 
@@ -196,7 +197,6 @@ const questions = [
   },
   
 ];
-
 document.addEventListener("DOMContentLoaded", function() {
   startTimer(); // Sāk laika skaitītāju
   generateQuestion(); // Ģenerē uzdevumu, kad lapa ir ielādēta
@@ -227,7 +227,7 @@ function generateQuestion() {
   questionContainer.innerHTML = '';
   const questionDiv = document.createElement("div");
   questionDiv.classList.add("question");
-  questionDiv.innerHTML = `<h3>Uzdevums</h3><p>${question}</p><p>Palikušās dzīvības: ${lives}</p><p>Palikušais laiks: <span id="timeLeft">${secondsLeft}</span> sekundes</p>`;
+  questionDiv.innerHTML = `<h5>Uzdevums</h5><p>${question}</p><p>Palikušās dzīvības: ${lives}</p><p>Palikušais laiks: <span id="timeLeft">${secondsLeft}</span> sekundes</p>`;
   questionContainer.appendChild(questionDiv);
 
   const answersContainer = document.createElement("div");
@@ -240,6 +240,14 @@ function generateQuestion() {
     answersContainer.appendChild(answerButton);
   });
   questionContainer.appendChild(answersContainer);
+
+  // Atjaunina līmeņa indikatoru
+  const levelIndicator = document.getElementById("levelIndicator");
+  levelIndicator.textContent = "Līmenis: " + calculateCurrentLevel(currentQuestion);
+}
+
+function calculateCurrentLevel(currentQuestion) {
+  return Math.floor(currentQuestion / totalQuestionsPerLevel) + 1;
 }
 
 function checkAnswer(isCorrect, button) {
@@ -249,17 +257,31 @@ function checkAnswer(isCorrect, button) {
   } else {
     button.classList.remove("btn-secondary");
     button.classList.add("btn-danger");
+    // Atņem dzīvību, ja atbilde nav pareiza
+    lives--;
+    if (lives === 0) {
+      // Ja dzīvības ir beigušās, beidz spēli
+      endGame();
+      return;
+    }
   }
 
-  // Pagaida 2 sekundes pirms lapas atsvaidzināšanas un jauna jautājuma ģenerēšanas
   setTimeout(() => {
     // Palielina uzdevuma numuru
     currentQuestion++;
     // Pārbauda, vai esam sasniedzis pēdējo uzdevumu
     if (currentQuestion >= questions.length) {
       currentQuestion = 0; // Ja esam sasniedzis pēdējo uzdevumu, sākam no sākuma
+      // Palielina līmeņa numuru, ja visi uzdevumi šajā līmenī ir izpildīti
+      const levelIndicator = document.getElementById("levelIndicator");
+      levelIndicator.textContent = "Līmenis: " + calculateCurrentLevel(currentQuestion);
     }
     // Ģenerē un parāda jaunu jautājumu
     generateQuestion();
   }, 2000);
+}
+
+function endGame() {
+  // Pārslēdz spēlētāju uz index3.html
+  window.location.href = "index3.html";
 }
