@@ -250,19 +250,13 @@ function calculateCurrentLevel(currentQuestion) {
   return Math.floor(currentQuestion / totalQuestionsPerLevel) + 1;
 }
 
-let correctAnswers = 0; // Pareizo atbilžu skaits
-let wrongAnswers = 0; // Nepareizo atbilžu skaits
-let totalGameTime = 0; // Kopējais spēles laiks (sekundes)
-
 function checkAnswer(isCorrect, button) {
   if (isCorrect) {
     button.classList.remove("btn-secondary");
     button.classList.add("btn-success");
-    correctAnswers++; // Palielina pareizo atbilžu skaitu
   } else {
     button.classList.remove("btn-secondary");
     button.classList.add("btn-danger");
-    wrongAnswers++; // Palielina nepareizo atbilžu skaitu
     // Atņem dzīvību, ja atbilde nav pareiza
     lives--;
     if (lives === 0) {
@@ -288,8 +282,6 @@ function checkAnswer(isCorrect, button) {
 }
 
 function endGame() {
-  // Aprēķina kopējo spēles laiku
-  totalGameTime = 120 - secondsLeft;
   // Pārslēdz spēlētāju uz index3.html
   window.location.href = "index3.html";
 }
