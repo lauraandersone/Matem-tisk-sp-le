@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="lv">
 <head>
+  <link rel="stylesheet" type="text/css" href="style.css" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Matemātiskā Mīkla</title>
@@ -15,7 +16,7 @@
         <h1 class="game-title text-center mb-4">Matemātiskā Mīkla</h1>
         <div id="score">Pareizās atbildes: <span id="correctAnswers">0</span></div>
         <br>
-        <div id="mistakes">Nepareizās atbildes: <span id="incorrectAnswers">0</span></div>
+        <div id="mistakes">Nepareizās atbildes: <span id="wrongAnswers">0</span></div>
         <br>
         <div id="taskDuration">Uzdevuma ilgums: <span id="taskDurationDisplay">0 sek</span></div>
         <br>
@@ -23,6 +24,7 @@
         <br>
         <div id="answersContainer"></div> <!-- Šeit tiks parādītas atbildes -->
         <button class="btn btn-primary btn-lg mt-3" onclick="restartGame()">Sākt spēli no jauna</button>
+        <button class="btn btn-primary btn-lg mt-3" onclick="backToStart()">Atpakaļ uz sākumu</button>
       </div>
     </div>
   </div>

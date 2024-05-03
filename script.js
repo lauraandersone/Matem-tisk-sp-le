@@ -272,6 +272,7 @@ let totalGameTime = 0; // Kopējais spēles laiks (sekundes)
 
 function checkAnswer(isCorrect, button) {
   if (isCorrect) {
+    correctAnswers++;
     button.classList.remove("btn-secondary");
     button.classList.add("btn-success");
     correctAnswersInARow++;
@@ -280,6 +281,7 @@ function checkAnswer(isCorrect, button) {
       correctAnswersInARow = 0;
     }
   } else {
+    wrongAnswers++;
     button.classList.remove("btn-secondary");
     button.classList.add("btn-danger");
     correctAnswersInARow = 0;
@@ -311,12 +313,31 @@ function checkAnswer(isCorrect, button) {
   }, 2000);
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+  // Izgūst spēles rezultātus no localStorage
+  const totalGameTime = parseInt(localStorage.getItem("totalGameTime"));
+  const correctAnswers = parseInt(localStorage.getItem("correctAnswers"));
+  const wrongAnswers = parseInt(localStorage.getItem("wrongAnswers"));
+  const livesLost = parseInt(localStorage.getItem("livesLost"));
+
+  // Parāda spēles rezultātus HTML elementā
+  document.getElementById("correctAnswers").textContent = correctAnswers;
+  document.getElementById("wrongAnswers").textContent = wrongAnswers;
+  document.getElementById("taskDurationDisplay").textContent = totalGameTime + " sek";
+  document.getElementById("livesLostDisplay").textContent = livesLost;
+});
+
 function endGame() {
   // Aprēķina kopējo spēles laiku
   totalGameTime = 120 - secondsLeft;
-  // Notīra spēles progresu
-  localStorage.removeItem("speluProgress");
+  // Saglabā rezultātus un laiku localStorage
+  localStorage.setItem("totalGameTime", totalGameTime.toString());
+  localStorage.setItem("correctAnswers", correctAnswers.toString());
+  localStorage.setItem("wrongAnswers", wrongAnswers.toString());
+  localStorage.setItem("livesLost", (3 - lives).toString());
   // Pārslēdz spēlētāju uz index3.html
   window.location.href = "index3.html";
-
+}
+function backToStart() {
+  window.location.href = "index.html";
 }
