@@ -243,7 +243,7 @@ function generateQuestion() {
   questionContainer.innerHTML = '';
   const questionDiv = document.createElement("div");
   questionDiv.classList.add("question");
-  questionDiv.innerHTML = `<h5>Uzdevums</h5><p>${question}</p><p>Palikušās dzīvības: ${lives}</p><p>Palikušais laiks: <span id="timeLeft">${secondsLeft}</span> sekundes</p>`;
+  questionDiv.innerHTML = `<h5>Uzdevums: </h5><br><h6>${question}</h6><br><p>Palikušās dzīvības: ${lives}</p><p>Palikušais laiks: <span id="timeLeft">${secondsLeft}</span> sekundes</p>`;
   questionContainer.appendChild(questionDiv);
 
   const answersContainer = document.createElement("div");
@@ -318,5 +318,5 @@ function endGame() {
   localStorage.removeItem("speluProgress");
   // Pārslēdz spēlētāju uz index3.html
   window.location.href = "index3.html";
-  
+
 }
