@@ -1,106 +1,103 @@
-/* Reset CSS */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  p {
-    margin-bottom: 15px;
-  }
-  
-  ul {
-    margin-bottom: 20px;
-  }
-  
-  li {
-    margin-bottom: 10px;
-  }
-  
-  .btn-lg {
-    padding: 10px 20px;
-    font-size: 1.2rem;
-  }
-#score, #mistakes {
-    margin-bottom: 20px;
-    font-size: 18px;
-    color: #333;
-}
-
-#restartButton {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-#restartButton:hover {
-    background-color: #45a049;
-}
 body {
   font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #f2f2f2;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
   padding: 20px;
+  margin-top: 0; /* Ielieciet šo rindu, lai novērstu atkāpi no lapas augšas */
+}
+
+.game-title {
+  color: #000000; /* Mainīt teksta krāsu */
+  font-size: 2.5rem; /* Mainīt fonta izmēru */
+  text-transform: uppercase; /* Pārvērst tekstu uz lielajiem burtiem */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Pievienot ēnu */
+   margin-top: 0; /* Samazina atstarpi virsraksta un lapas augšas starpībā */
+}
+
+.container {
+  max-width: 800px;
+  margin-top: 30px; /* Izmaiņa - pievienota atstarpe no lapas augšas */
+}
+
+.game-description {
+  background-color: #ffffff; /* Izcelt fons */
+  padding: 10px; /* Pievienot polsterējumu */
+  border-radius: 5px; /* Pielāgot apaļo stūru */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Pievienot ēnu */
+  color: #000000; /* Tumšāka krāsa */
+  font-weight: bold; /* Biezāks teksts */
 }
 
 h1 {
-  color: #000000;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #000000; /* Izmaiņa - pievienots krāsas stils */
+}
+
+p {
+  margin-bottom: 15px;
+}
+
+ul {
+  margin-bottom: 20px;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+.btn-lg {
+  padding: 10px 20px;
+  font-size: 1.2rem;
 }
 
 #score,
-#mistakes,
-#taskDuration,
-#livesLost {
-  margin: 10px 0;
+#mistakes {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #333;
 }
 
-button {
-  margin-top: 20px;
+#restartButton {
   padding: 10px 20px;
   font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
   border: none;
-  background-color: #007bff;
-  color: #fff;
+  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-button:hover {
-  background-color: #0056b3;
+#restartButton:hover {
+  background-color: #45a049;
 }
 
-.btn-primary {
-  background-color: #007bff;
+/* Pievienotie noteikumi */
+.rules {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 30px;
 }
 
-.btn-primary:hover {
-  background-color: #0056b3;
+.rules h3 {
+  color: #007bff;
+}
+
+.rules ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.rules li {
+  margin-bottom: 10px;
+}
+
+.rules button {
+  margin-top: 20px;
 }
