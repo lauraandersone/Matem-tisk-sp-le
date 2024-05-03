@@ -318,4 +318,5 @@ function endGame() {
   localStorage.removeItem("speluProgress");
   // Pārslēdz spēlētāju uz index3.html
   window.location.href = "index3.html";
+  
 }
